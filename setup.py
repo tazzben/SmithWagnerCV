@@ -8,7 +8,8 @@ setup(
     install_requires=[
         'numpy',
         'pandas',
-        'itertools'
+        'itertools',
+        'progress'
     ],
     author='Ben Smith',
     author_email='bosmith@unomaha.edu',

@@ -5,6 +5,7 @@ import numpy
 import pandas as pd
 from multiprocessing import Pool
 from itertools import product
+from progress.bar import Bar
 
 def GuessPre(x,numoptions):
     if x['pretest']==1:
@@ -75,9 +76,12 @@ def RunSimulation(cs, mu, numoptions=4, criticalValues=[0.90,0.95], confInterval
 
 def SimulationTable(csList, muList, numoptions = 4, criticalValues = [0.90,0.95], confInterval = [0.025, 0.975], R = 10000):
     r = []
-    
-    for row in list(product(csList,muList)):
+    l = list(product(csList,muList))
+    bar = Bar('Processing', max=len(l))
+    for row in l:
         r.append(RunSimulation(row[0], row[1], numoptions, criticalValues, confInterval, R))
+        bar.next()
+    bar.finish()
     
     returnDict = {'gamma':[],'alpha':[],'flow':[],'gain':[]}
     for e in r:
