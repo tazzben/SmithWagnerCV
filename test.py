@@ -1,4 +1,4 @@
-from SmithWagnerCV import SimulateDist
+from SmithWagnerCV import RunSimulation
 
 if __name__ == '__main__':
-    print(SimulateDist(20,0))
+    print(RunSimulation(20,0))

@@ -4,6 +4,7 @@ import sys
 import numpy
 import pandas as pd
 from multiprocessing import Pool
+from itertools import product
 
 def GuessPre(x,numoptions):
     if x['pretest']==1:
@@ -58,10 +59,10 @@ def Simulation(csize,mu,numoptions,R):
         r = p.starmap(SimulationLoop, args)
     return pd.DataFrame(data=r,columns=('pl', 'nl', 'zl','rl','gamma','alpha','mu','flow','gain'))
 
-def SimulateDist(cs, mu, numoptions=4, criticalValues=[0.90,0.95], confInt=[0.025, 0.975], R=10000):
+def RunSimulation(cs, mu, numoptions=4, criticalValues=[0.90,0.95], confInterval=[0.025, 0.975], R=10000):
     r = Simulation(cs,mu,numoptions,R)
     resultDict = {}
-    ci = [r['mu'].quantile(q=civ) for civ in confInt]
+    ci = [r['mu'].quantile(q=civ) for civ in confInterval]
     for col in r:
         if col in ('gamma','alpha','flow','gain'):
             cvs = []
@@ -69,5 +70,26 @@ def SimulateDist(cs, mu, numoptions=4, criticalValues=[0.90,0.95], confInt=[0.02
                 ng =  r[r[col] <= r[col].quantile(q=val)]
                 ng = ng.sort_values([col,'mu'], ascending=[False,True])
                 cvs.append(ng.iloc[0][col])
-            resultDict[col] = {'mu':mu, 'class':cs, 'criticalValues': dict(zip(criticalValues, cvs)), 'ci': dict(zip(confInt, ci))}
+            resultDict[col] = {'mu':mu, 'classSize':cs, 'criticalValues': dict(zip(criticalValues, cvs)), 'muCI': dict(zip(confInterval, ci))}
     return resultDict
+
+def SimulationTable(csList, muList, numoptions = 4, criticalValues = [0.90,0.95], confInterval = [0.025, 0.975], R = 10000):
+    r = []
+    
+    for row in list(product(csList,muList)):
+        r.append(RunSimulation(row[0], row[1], numoptions, criticalValues, confInterval, R))
+    
+    returnDict = {'gamma':[],'alpha':[],'flow':[],'gain':[]}
+    for e in r:
+        for dice in ('gamma','alpha','flow','gain'):
+            returnDict[dice].append(e[dice])
+    
+    return returnDict
+
+def SaveSimulationTable (csList, muList, numoptions = 4, criticalValues = [0.90,0.95], confInterval = [0.025, 0.975], R = 10000):
+    resultsDictionary = SimulationTable(csList, muList, numoptions, criticalValues, confInterval, R)
+    for col in ('gamma','alpha','flow','gain'):
+        d = pd.DataFrame(resultsDictionary[col])
+        df = pd.DataFrame(d)
+        filename = col + "Results.csv"
+        df.to_csv(filename)

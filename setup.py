@@ -7,7 +7,8 @@ setup(
     license='MIT',
     install_requires=[
         'numpy',
-        'pandas'
+        'pandas',
+        'itertools'
     ],
     author='Ben Smith',
     author_email='bosmith@unomaha.edu',

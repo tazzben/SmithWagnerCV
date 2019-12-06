@@ -1,1 +1,1 @@
-from .Methods import SimulateDist
+from .Methods import RunSimulation, SimulationTable, SaveSimulationTable
