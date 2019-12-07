@@ -29,3 +29,17 @@ from SmithWagnerCV import SaveSimulationTable
 d = SaveSimulationTable([10,20], [0.1,0.5])
 
 ```
+
+## Installation
+
+Using the pip tool, you can install this module with the following command:
+
+```
+pip install SmithWagnerCV
+```
+
+Using the conda command you can type the following:
+
+```
+conda install -c tazzben smithwagnercv  
+```
