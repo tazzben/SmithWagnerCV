@@ -2,8 +2,8 @@ from distutils.core import setup
 
 setup(
     name='SmithWagnerCV',
-    version='0.0.1',
-    packages=['SmithWagner',],
+    version='0.0.2',
+    packages=['SmithWagnerCV',],
     license='MIT',
     install_requires=[
         'numpy',
@@ -24,6 +24,6 @@ setup(
     ],
     keywords = ['Monte Carlo', 'Value-added Learning', 'Statistics'],
     url = 'https://github.com/tazzben/SmithWagnerCV',
-    download_url = 'https://github.com/tazzben/SmithWagnerCV/archive/v0.0.1.tar.gz',  
+    download_url = 'https://github.com/tazzben/SmithWagnerCV/archive/v0.0.2.tar.gz',  
     description = 'Produces critical values for value-added learning scores proposed in Smith and Wagner (2018) through Monte Carlo simulations.'
 )
