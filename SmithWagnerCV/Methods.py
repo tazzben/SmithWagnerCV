@@ -61,6 +61,38 @@ def Simulation(csize,mu,numoptions,R):
     return pd.DataFrame(data=r,columns=('pl', 'nl', 'zl','rl','gamma','alpha','mu','flow','gain'))
 
 def RunSimulation(cs, mu, numoptions=4, criticalValues=[0.90,0.95], confInterval=[0.025, 0.975], R=10000):
+    """ 
+    Produces a Monte Carlo simulation of student guessing on a pre- and post-test based the specified class size, mu value, and question options.
+
+	Parameters
+	----------
+	cs : int
+        Class size 
+    mu : float
+        Proportion of the class with stock knowledge
+    numoptions : int
+        Number of options on the exam. Defaults to four.
+    criticalValues : list
+        List of critical values to extract from the learning distributions.  Defaults to [0.90,0.95].
+    confInterval: : list
+        List of values to extact from the mu distribution.  Defaults to [0.025, 0.975].
+    R : int
+        Number of iterations for each simulation.  Defaults to 10,000.
+    
+    Returns
+    -------
+    Dictionary:
+        'gamma'
+        'alpha'
+        'flow'
+        'gain'
+    
+    Each learning type contains a nested dictionary of:
+        'mu' : float
+        'classSize' : int
+        'criticalValues' : dict
+        'muCI' : dict
+    """
     r = Simulation(cs,mu,numoptions,R)
     resultDict = {}
     ci = [r['mu'].quantile(q=civ) for civ in confInterval]
@@ -75,6 +107,39 @@ def RunSimulation(cs, mu, numoptions=4, criticalValues=[0.90,0.95], confInterval
     return resultDict
 
 def SimulationTable(csList, muList, numoptions = 4, criticalValues = [0.90,0.95], confInterval = [0.025, 0.975], R = 10000):
+    """ 
+    Saves a tables of Monte Carlo simulations of student guessing on a pre- and post-test based the specified class size, mu value, and question options.
+
+	Parameters
+	----------
+	csList : list
+        List of class sizes 
+    muList : list
+        List of mu values
+    numoptions : int
+        Number of options on the exam. Defaults to four.
+    criticalValues : list
+        List of critical values to extract from the learning distributions.  Defaults to [0.90,0.95].
+    confInterval: : list
+        List of values to extact from the mu distribution.  Defaults to [0.025, 0.975].
+    R : int
+        Number of iterations for each simulation.  Defaults to 10,000.
+    
+    Returns
+    -------
+    Dictionary:
+        'gamma'
+        'alpha'
+        'flow'
+        'gain'
+    
+    Each learning type contains a nested list of dictionaries with:
+        'mu' : float
+        'classSize' : int
+        'criticalValues' : dict
+        'muCI' : dict
+    """
+    
     r = []
     l = list(product(csList,muList))
     bar = Bar('Processing', max=len(l))
@@ -91,6 +156,29 @@ def SimulationTable(csList, muList, numoptions = 4, criticalValues = [0.90,0.95]
     return returnDict
 
 def SaveSimulationTable (csList, muList, numoptions = 4, criticalValues = [0.90,0.95], confInterval = [0.025, 0.975], R = 10000):
+    """ 
+    Produces a a table of Monte Carlo simulations of student guessing on a pre- and post-test based the specified class size, mu value, and question options.
+
+	Parameters
+	----------
+	csList : list
+        List of class sizes 
+    muList : list
+        List of mu values
+    numoptions : int
+        Number of options on the exam. Defaults to four.
+    criticalValues : list
+        List of critical values to extract from the learning distributions.  Defaults to [0.90,0.95].
+    confInterval: : list
+        List of values to extact from the mu distribution.  Defaults to [0.025, 0.975].
+    R : int
+        Number of iterations for each simulation.  Defaults to 10,000.
+            
+    Returns
+    -------
+        None
+            Saves four CSV files.
+    """
     resultsDictionary = SimulationTable(csList, muList, numoptions, criticalValues, confInterval, R)
     for col in ('gamma','alpha','flow','gain'):
         d = pd.DataFrame(resultsDictionary[col])
