@@ -1,6 +1,6 @@
 # SmithWagnerCV
  
-This module produces critical values for the disaggregated learning types as described in Smith and Wagner (2018) and Smith and White (2019 - unpublished). 
+This module produces critical values for the disaggregated learning types as described in Smith and Wagner (2018) and Smith and White (2021). 
 
 ## Examples
 
