@@ -18,7 +18,7 @@ Simulate all combinations of [10,20] students and [0.1,0.5] mu values and return
 ```python
 from SmithWagnerCV import SimulationTable
 
-d = SimulateTable([10,20], [0.1,0.5])
+d = SimulationTable([10,20], [0.1,0.5])
 
 ```
 Simulate all combinations of [10,20] students and [0.1,0.5] mu values and save them to CSV files
