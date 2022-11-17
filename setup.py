@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='SmithWagnerCV',
-    version='0.0.3',
+    version='0.0.4',
     packages=['SmithWagnerCV',],
     license='MIT',
     install_requires=[
