@@ -8,7 +8,7 @@ setup(
     install_requires=[
         'numpy',
         'pandas',
-        'progress'
+        'tqdm'
     ],
     author='Ben Smith',
     author_email='bosmith@unomaha.edu',

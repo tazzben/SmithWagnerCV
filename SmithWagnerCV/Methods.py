@@ -1,11 +1,9 @@
 from __future__ import division, print_function, absolute_import
-import os
-import sys
 import numpy
 import pandas as pd
 from multiprocessing import Pool
 from itertools import product
-from progress.bar import Bar
+from tqdm import tqdm
 
 def GuessPre(x,numoptions):
     if x['pretest']==1:
@@ -75,7 +73,7 @@ def RunSimulation(cs, mu, numoptions=4, criticalValues=[0.90,0.95], confInterval
     criticalValues : list
         List of critical values to extract from the learning distributions.  Defaults to [0.90,0.95].
     confInterval: : list
-        List of values to extact from the mu distribution.  Defaults to [0.025, 0.975].
+        List of values to extract from the mu distribution.  Defaults to [0.025, 0.975].
     R : int
         Number of iterations for each simulation.  Defaults to 10,000.
     
@@ -121,7 +119,7 @@ def SimulationTable(csList, muList, numoptions = 4, criticalValues = [0.90,0.95]
     criticalValues : list
         List of critical values to extract from the learning distributions.  Defaults to [0.90,0.95].
     confInterval: : list
-        List of values to extact from the mu distribution.  Defaults to [0.025, 0.975].
+        List of values to extract from the mu distribution.  Defaults to [0.025, 0.975].
     R : int
         Number of iterations for each simulation.  Defaults to 10,000.
     
@@ -142,11 +140,8 @@ def SimulationTable(csList, muList, numoptions = 4, criticalValues = [0.90,0.95]
     
     r = []
     l = list(product(csList,muList))
-    bar = Bar('Processing', max=len(l))
-    for row in l:
+    for row in tqdm(l):
         r.append(RunSimulation(row[0], row[1], numoptions, criticalValues, confInterval, R))
-        bar.next()
-    bar.finish()
     
     returnDict = {'gamma':[],'alpha':[],'flow':[],'gain':[]}
     for e in r:
