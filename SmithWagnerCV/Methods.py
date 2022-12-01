@@ -165,7 +165,7 @@ def SaveSimulationTable (csList, muList, numoptions = 4, criticalValues = [0.90,
     criticalValues : list
         List of critical values to extract from the learning distributions.  Defaults to [0.90,0.95].
     confInterval: : list
-        List of values to extact from the mu distribution.  Defaults to [0.025, 0.975].
+        List of values to extract from the mu distribution.  Defaults to [0.025, 0.975].
     R : int
         Number of iterations for each simulation.  Defaults to 10,000.
             
