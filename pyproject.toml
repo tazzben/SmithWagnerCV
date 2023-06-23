@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "SmithWagnerCV"
-version = "0.0.6"
+version = "0.1.0"
 description = "Produces critical values for value-added learning scores proposed in Smith and Wagner (2018) through Monte Carlo simulations."
 license = "MIT"
 authors = [
@@ -35,4 +35,4 @@ dependencies = [
 
 [project.urls]
 "Homepage" = "https://github.com/tazzben/SmithWagnerCV"
-"Bug Tracker" = "https://github.com/tazzben/SmithWagnerCV"
+"Bug Tracker" = "https://github.com/tazzben/SmithWagnerCV/issues"
